@@ -1,0 +1,168 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Chao Yuan - Personal Website</title>
+  <link rel="stylesheet" href="style.css" />
+  <link href="https://fonts.googleapis.com/css2?family=Noto+Sans&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=DM+Serif+Display&display=swap" rel="stylesheet">
+</head>
+
+
+
+<body>
+  <!-- ===== 导航栏 ===== -->
+  <nav id="navbar">
+    <ul>
+      <li><a href="#home" class="active">主页 | Home</a></li>
+      <li><a href="#projects">项目 | Project</a></li>
+      <!-- <li><a href="#content">干货 | Content</a></li> -->
+      <li><a href="#publication">学术 | Publication</a></li>
+    </ul>
+  </nav>
+
+  <!-- ===== Home ===== -->
+  <section id="home" class="home-section">
+    <video autoplay muted loop playsinline id="intro-video">
+      <source src="assets/home/intro.mp4" type="video/mp4" />
+    </video>
+    <div class="overlay">
+      <h1>袁潮 | Chao Yuan</h1>
+      <p>计算设计 · 数字制造 · 人机交互</p>
+      <p>Computational Design · Fabrication · HCI</p>
+      <div class="scroll-down">↓ Scroll Down</div>
+    </div>
+  </section>
+
+  <!-- ===== About ===== -->
+  <section id="about" class="content-section">
+    <h2>个人介绍 | About</h2>
+    <div class="about-container">
+      <div class="about-photo">
+        <img src="assets/home/myphoto.png" alt="Chao Yuan" />
+        <h3>袁潮 | Chao Yuan</h3>
+        <p class="about-text">
+          Email: 2210992@tongji.edu.cn<br />
+          <a href="https://orcid.org/my-orcid?orcid=0009-0002-1864-2792" target="_blank" class="link">ORCID</a>
+          <a href="https://xhslink.com/m/47Yu3WoSExI" target="_blank" class="link">RedNote</a>
+        </p>
+      </div>
+
+      <div class="about-text">
+        <p class="about-text">
+          <strong>学习经历 | Education</strong><br />
+          2022 - &nbsp;&nbsp; 同济大学 · 博士研究生 | Ph.D. Student, Tongji University<br />
+          2019 - 2022 &nbsp; 清华大学 · 硕士 | Master, Tsinghua University<br />
+          2015 - 2019 &nbsp; 中南大学 · 学士 | Bachelor, Central South University
+        </p>
+
+        <p class="about-text">
+          袁潮，现为同济大学智能科学与技术专业博士研究生，硕士毕业于清华大学美术学院工业设计系，具备艺术与科技的跨学科背景。研究方向涵盖计算设计、人机交互与计算机图形学，近年来重点探索几何结构与材料的设计方法，并致力于智能设计工具的研发以推动设计创新。
+        </p>
+
+        <p class="about-text">
+          Chao Yuan is currently a Ph.D. candidate in Intelligent Science and Technology at Tongji University. He received his Master's degree from the Department of Industrial Design, Academy of Arts and Design, Tsinghua University. With an interdisciplinary background bridging art and technology, his research spans computational design, human–computer interaction, and computer graphics. In recent years, he has focused on design methods for geometric structures and materials, and on developing intelligent design tools to advance design innovation.
+        </p>
+      </div>
+    </div>
+  </section>
+
+  <!-- ===== Exhibition ===== -->
+  <section id="exhibition" class="content-section">
+    <h2>代表作品 | Exhibition</h2>
+    <div class="project-grid exhibition-grid" id="exhibition-grid">
+
+      <div class="project-item video-item" onclick="loadVideo(this, 'SlkWldrKJv0')">
+        <img src="assets/project/2026_Perfattice/1.jpg">
+        <span class="project-title">AI驱动的混合晶格逆向设计系统</span>
+      </div>
+      
+      <div class="project-item video-item" onclick="loadVideo(this, '4DUohln4tSI')">
+        <img src="assets/project/2025_freeshell/result1.jpg">
+        <span class="project-title">基于4D打印的曲面精准形变工艺</span>
+      </div>
+      
+      <div class="project-item video-item" onclick="loadVideo(this, 'Muo375PzJfM')">
+        <img src="assets/project/2025_interflex/1.jpg">
+        <span class="project-title">3D打印柔性面料数字制造工具</span>
+      </div>
+      
+      <div class="project-item video-item" onclick="loadVideo(this, 'rqUutMg2lkY')">
+        <img src="assets/project/2022_FancyColor/poster1.png">
+        <span class="project-title">结构色矩阵装置</span>
+      </div>
+      
+      <div class="project-item video-item" onclick="loadVideo(this, 'jZW3PXfTigU')">
+        <img src="assets/project/2022_FancyColor/poster2.png">
+        <span class="project-title">3D打印结构色张拉膜结构装置</span>
+      </div>
+
+    </div>
+  </section>
+
+  <!-- ===== Project ===== -->
+  <section id="projects" class="content-section">
+    <h2>Project</h2>
+    <div class="project-grid" id="projects-grid">
+      <!-- Markdown 项目自动加载 -->
+    </div>
+  </section>
+
+
+  <!-- ===== Publication ===== -->
+  <section id="publication" class="content-section">
+    <h2>Publication</h2>
+    <div id="publication-list" class="publication-list">
+      <!-- Markdown 自动加载 -->
+    </div>
+  </section>
+  
+
+  <!-- ===== 弹出详情层 ===== -->
+  <div id="projectModal" class="modal">
+    <span class="close">&times;</span>
+    <div class="modal-content">
+      <h2 id="modalTitle"></h2>
+      <div id="modalMedia"></div>
+    </div>
+  </div>
+
+  <!-- ===== 脚本加载 ===== -->
+  <script src="https://cdn.jsdelivr.net/npm/marked/marked.min.js"></script>
+  <script src="script.js"></script>
+</body>
+
+
+
+<!-- ===== Footer ===== -->
+<footer class="footer">
+  <div class="footer-container">
+
+    <div class="footer-col">
+      <h3>Contact</h3>
+      <p>Email: 2210992@tongji.edu.cn</p>
+    </div>
+
+    <div class="footer-col">
+      <h3>Research</h3>
+      <p>Computational Design</p>
+      <p>Digital Fabrication</p>
+      <p>Human-Computer Interaction</p>
+    </div>
+
+    <div class="footer-col">
+      <h3>Links</h3>
+      <p><a href="https://orcid.org/my-orcid?orcid=0009-0002-1864-2792" target="_blank">ORCID</a></p>
+      <p><a href="https://xhslink.com/m/47Yu3WoSExI" target="_blank">RedNote</a></p>
+    </div>
+
+  </div>
+
+  <div class="footer-bottom">
+    © 2026 Chao Yuan
+  </div>
+</footer>
+
+
+</html>
