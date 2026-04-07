@@ -27,4 +27,4 @@ We validated our method by fabricating various 3D shapes, including three catego
 ---
 
 ## Video Preview
-<iframe src="https://www.youtube.com/embed/4DUohln4tSI"></iframe>
+<iframe src="https://player.bilibili.com/player.html?bvid=BV1SzDvBgEu7"></iframe>

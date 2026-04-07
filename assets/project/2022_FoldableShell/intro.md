@@ -17,4 +17,4 @@ We present FoldableShell, a 3D-printed shell framework based on developable surf
 ---
 
 ## Video Preview
-<iframe src="https://www.youtube.com/embed/ROQ4AznPFQc"></iframe>
+<iframe src="https://player.bilibili.com/player.html?bvid=BV1mCDvBqETr"></iframe>

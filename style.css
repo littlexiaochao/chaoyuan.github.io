@@ -145,7 +145,7 @@ nav a.active::after {
   border-bottom:1px solid #005999;
 }
 
-/* ===== Exhibition 专属布局（电影感）===== */
+/* ===== Exhibition ===== */
 .project-grid.exhibition-grid {
   display: grid;
   grid-template-columns: 1fr !important;

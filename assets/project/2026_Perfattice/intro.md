@@ -21,4 +21,4 @@ AI-driven lattice design framework. (a) Graph-based modeling for lattice perform
 ---
 
 ## Video Preview
-<iframe src="https://www.youtube.com/embed/SlkWldrKJv0"></iframe>
+<iframe src="https://player.bilibili.com/player.html?bvid=BV1R4DvBEEZP"></iframe>

@@ -82,7 +82,7 @@ async function loadProjects(sectionId, data) {
     const item = document.createElement("div");
     item.classList.add("project-item");
     item.dataset.markdown = proj.markdown;
-    item.dataset.youtube = proj.youtube || ""; // ⭐新增
+    item.dataset.bilibili = proj.bilibili || "";
 
     // 先设置 Loading
     item.innerHTML = `
@@ -142,13 +142,12 @@ async function loadProjects(sectionId, data) {
         //   }
         //   return `<video src="${src}"`;
         // });
-        const youtubeId = item.dataset.youtube;
-        if (youtubeId) {
+        const bvid = item.dataset.bilibili;
+        if (bvid) {
           markdownText = markdownText.replace(/<video[\s\S]*?<\/video>/g, `
             <div class="md-video">
-              <iframe src="https://www.youtube.com/embed/${youtubeId}"
+              <iframe src="https://player.bilibili.com/player.html?bvid=${bvid}"
                       frameborder="0"
-                      allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
                       allowfullscreen>
               </iframe>
             </div>
@@ -239,30 +238,27 @@ async function loadPublications(mdPath) {
 }
 
 
-function loadVideo(el, videoId) {
+function loadVideo(el, bvid) {
 
-  // ✅ 如果已经加载过，就不重复加载
   if (el.classList.contains('loaded')) return;
 
-  // ✅ 停止其他视频（关键优化）
+  // 停止其他视频
   document.querySelectorAll('.video-item.loaded').forEach(item => {
     item.innerHTML = item.dataset.original;
     item.classList.remove('loaded');
   });
 
-  // ✅ 保存原始内容（用于恢复）
+  // 保存原始内容
   el.dataset.original = el.innerHTML;
 
-  // ✅ 创建 iframe
+  // 创建 iframe（B站）
   const iframe = document.createElement("iframe");
-  iframe.src = `https://www.youtube.com/embed/${videoId}?autoplay=1`;
+  iframe.src = `https://player.bilibili.com/player.html?bvid=${bvid}&autoplay=1`;
   iframe.frameBorder = "0";
-  iframe.allow = "accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture";
   iframe.allowFullscreen = true;
   iframe.style.width = "100%";
   iframe.style.height = "100%";
 
-  // ✅ 替换内容
   el.innerHTML = "";
   el.appendChild(iframe);
 
