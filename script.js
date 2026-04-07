@@ -275,6 +275,7 @@ const projectData = [
   { thumb: "assets/project/2026_Perfattice/1.jpg", markdown: "assets/project/2026_Perfattice/intro.md" },
   { thumb: "assets/project/2025_freeshell/1.jpg", markdown: "assets/project/2025_freeshell/intro.md" },
   { thumb: "assets/project/2025_interflex/1.jpg", markdown: "assets/project/2025_interflex/intro.md" },
+  { thumb: "assets/project/2025_CurveFolding/1.jpg", markdown: "assets/project/2025_CurveFolding/intro.md" },
   { thumb: "assets/project/2022_FoldableShell/1.jpg", markdown: "assets/project/2022_FoldableShell/intro.md" },
 ];
 
