@@ -55,12 +55,15 @@ function parsePublications(markdown) {
       const title = lines.shift().replace(/^#\s*/, "");
       const isLink = line => /^\[[^\]]+\]\([^)]+\)/.test(line);
       const isVenue = line => /^\*(?!\*).+\*$/.test(line);
+      const isImage = line => /^!\[[^\]]*\]\(([^)]+)\)$/.test(line);
 
-      const authors = lines.find(line => !isLink(line) && !isVenue(line)) || "";
+      const imageLine = lines.find(isImage) || "";
+      const image = imageLine.replace(/^!\[[^\]]*\]\(([^)]+)\)$/, "$1");
+      const authors = lines.find(line => !isLink(line) && !isVenue(line) && !isImage(line)) || "";
       const venue = lines.find(isVenue) || "";
       const links = lines.filter(isLink);
 
-      return { title, authors, venue, links };
+      return { title, authors, venue, links, image };
     });
 }
 
@@ -68,15 +71,22 @@ function renderPublications(publications) {
   return publications
     .map(publication => {
       const links = publication.links.map(renderInline).join(" ");
+      const firstLink = (publication.links[0] || "").replace(/^\[[^\]]+\]\(([^)]+)\)$/, "$1");
+      const thumbnail = publication.image
+        ? `        <a class="publication-thumb" href="${escapeHtml(firstLink || "#")}" target="_blank" rel="noopener noreferrer"><img src="${escapeHtml(publication.image)}" alt="${escapeHtml(publication.title)}" loading="lazy" decoding="async" /></a>`
+        : "";
 
       return [
         '      <div class="publication-item">',
-        `        <h3>${renderInline(publication.title)}</h3>`,
-        `        <div class="publication-authors">${renderInline(publication.authors)}</div>`,
-        `        <div class="publication-venue">${renderInline(publication.venue)}</div>`,
-        `        <div class="publication-links">${links}</div>`,
+        thumbnail,
+        '        <div class="publication-body">',
+        `          <h3><span class="pub-bullet">✦</span>${renderInline(publication.title)}</h3>`,
+        `          <div class="publication-authors">${renderInline(publication.authors)}</div>`,
+        `          <div class="publication-venue">${renderInline(publication.venue)}</div>`,
+        `          <div class="publication-links">${links}</div>`,
+        "        </div>",
         "      </div>"
-      ].join("\n");
+      ].filter(Boolean).join("\n");
     })
     .join("\n");
 }

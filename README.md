@@ -13,7 +13,11 @@
 
 *期刊或会议, 年份*
 [Link](https://example.com)
+
+![teaser](assets/publication/example.jpg)
 ```
+
+最后一行是可选的论文缩略图，把图片放在 `assets/publication/fig/` 目录即可。没有图片时省略这一行。
 
 修改完成后，在项目目录运行：
 

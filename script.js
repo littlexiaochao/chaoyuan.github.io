@@ -3,15 +3,28 @@ const navLinks = document.querySelectorAll('nav a');
 const contentSections = document.querySelectorAll('.content-section');
 const homeSection = document.getElementById('home');
 const aboutSection = document.getElementById('about');
-const exhibitionSection = document.getElementById('exhibition');
+const worksSection = document.getElementById('works');
+const publicationSection = document.getElementById('publication');
 
-// 初始显示 Home + About
+const navBySection = {
+  home: document.querySelector('nav a[href="#home"]'),
+  works: document.querySelector('nav a[href="#works"]'),
+  publication: document.querySelector('nav a[href="#publication"]')
+};
+
+function setActiveNav(sectionId) {
+  navLinks.forEach(link => link.classList.remove('active'));
+  const activeLink = navBySection[sectionId];
+  if (activeLink) activeLink.classList.add('active');
+}
+
+// 初始显示 Home + About + Works
 homeSection.style.display = 'block';
 aboutSection.style.display = 'block';
-if (exhibitionSection) exhibitionSection.style.display = 'block';
+if (worksSection) worksSection.style.display = 'block';
 
 contentSections.forEach(sec => {
-  if (sec.id !== 'about' && sec.id !== 'exhibition') { // ✅ 关键修改
+  if (sec.id !== 'about' && sec.id !== 'works') {
     sec.style.display = 'none';
   }
 });
@@ -20,36 +33,18 @@ contentSections.forEach(sec => {
 navLinks.forEach(link => {
   link.addEventListener('click', e => {
     e.preventDefault();
-    navLinks.forEach(l => l.classList.remove('active'));
-    e.target.classList.add('active');
 
     const targetId = e.target.getAttribute('href').substring(1);
+    setActiveNav(targetId);
 
     if (targetId === 'home') {
       homeSection.style.display = 'block';
-      aboutSection.style.display = 'block';
-      if (exhibitionSection) exhibitionSection.style.display = 'block';
-    
       contentSections.forEach(sec => {
-        if (sec.id !== 'about' && sec.id !== 'exhibition') {
-          sec.style.display = 'none';
-        }
+        sec.style.display = (sec.id === 'about' || sec.id === 'works') ? 'block' : 'none';
       });
-    
       window.scrollTo({ top: 0, behavior: 'smooth' });
-    
-      // ✅ ⭐⭐ 关键修复 ⭐⭐
-      const videos = document.querySelectorAll('#exhibition video');
-      videos.forEach(video => {
-        video.pause();
-        video.currentTime = 0;
-        video.load();
-      });
-    }
-    else {
+    } else {
       homeSection.style.display = 'none';
-      aboutSection.style.display = 'none';
-      if (exhibitionSection) exhibitionSection.style.display = 'none';
       contentSections.forEach(sec => (sec.style.display = 'none'));
       const targetSection = document.getElementById(targetId);
       if (targetSection) targetSection.style.display = 'block';
@@ -58,12 +53,41 @@ navLinks.forEach(link => {
   });
 });
 
+// ===== 滚动时同步导航下划线 =====
+function updateActiveNavOnScroll() {
+  const visibleSections = [
+    { id: 'home', element: homeSection },
+    { id: 'about', element: aboutSection },
+    { id: 'works', element: worksSection },
+    { id: 'publication', element: publicationSection }
+  ].filter(section => section.element && section.element.style.display !== 'none');
+
+  if (visibleSections.length === 0) return;
+
+  const probe = window.scrollY + window.innerHeight * 0.35;
+  let currentId = visibleSections[0].id;
+
+  visibleSections.forEach(section => {
+    if (section.element.offsetTop <= probe) {
+      currentId = section.id;
+    }
+  });
+
+  // About 属于主页内容，滚动到 About 时仍高亮 Home
+  if (currentId === 'about') currentId = 'home';
+  setActiveNav(currentId);
+}
+
+window.addEventListener('scroll', updateActiveNavOnScroll, { passive: true });
+window.addEventListener('resize', updateActiveNavOnScroll);
+updateActiveNavOnScroll();
+
 // ===== Scroll Down 点击 → 平滑滚动到 About =====
 document.querySelector('.scroll-down').addEventListener('click', () => {
   aboutSection.scrollIntoView({ behavior: 'smooth' });
 });
 
-// ===== 弹出模态框 =====
+// ===== 弹出详情层 =====
 const modal = document.getElementById('projectModal');
 const modalTitle = document.getElementById('modalTitle');
 const modalMedia = document.getElementById('modalMedia');
@@ -74,234 +98,85 @@ window.onclick = e => {
   if (e.target === modal) modal.style.display = 'none';
 };
 
-// ===== 项目卡片交互：点击弹框显示完整 Markdown =====
-function bindProjectItems(container) {
-  container.querySelectorAll(".project-item").forEach(item => {
-    item.addEventListener("click", async () => {
-      const mdPath = item.dataset.markdown;
-      modalTitle.textContent = "";
-      modalMedia.innerHTML = "<p>Loading...</p>";
-      modal.style.display = "block";
-  
-      try {
-        let markdownText = await fetch(mdPath).then(res => res.text());
-  
-        // 获取第一行标题
-        const lines = markdownText.split(/\r?\n/);
-        const firstLineIndex = lines.findIndex(l => l.trim() !== '');
-        const firstLine = firstLineIndex >= 0 ? lines[firstLineIndex].replace(/^#\s*/, '') : '';
-  
-        // 设置弹框标题
-        modalTitle.textContent = firstLine;
-  
-        markdownText = lines.join("\n");
-  
-        // 修正图片/视频路径
-        const mdFolder = mdPath.substring(0, mdPath.lastIndexOf("/") + 1);
-        markdownText = markdownText.replace(/!\[([^\]]*)\]\(([^)]+)\)/g, (match, alt, src) => {
-          if (!src.startsWith('http') && !src.startsWith('/')) {
-            src = mdFolder + src;
-          }
-          return `![${alt}](${src})`;
-        });
-        // markdownText = markdownText.replace(/<video\s+src="([^"]+)"/g, (match, src) => {
-        //   if (!src.startsWith('http') && !src.startsWith('/')) {
-        //     src = mdFolder + src;
-        //   }
-        //   return `<video src="${src}"`;
-        // });
-        const bvid = item.dataset.bilibili;
-        if (bvid) {
-          markdownText = markdownText.replace(/<video[\s\S]*?<\/video>/g, `
-            <div class="md-video">
-              <iframe src="https://player.bilibili.com/player.html?bvid=${bvid}"
-                      frameborder="0"
-                      allowfullscreen>
-              </iframe>
-            </div>
-          `);
-        }
+async function openWorkDetail(card) {
+  const mdPath = card.dataset.markdown;
+  if (!mdPath) return;
 
-  
-        // 渲染 Markdown
-        modalTitle.textContent = "";
-        modalMedia.innerHTML = marked.parse(markdownText);
-
-        // 找到所有图片
-        const imgs = modalMedia.querySelectorAll('img');
-        if (imgs.length > 0) {
-          const firstImg = imgs[0];
-          const parent = firstImg.parentElement;
-          // 移动到 p 外面
-          modalMedia.insertBefore(firstImg, modalMedia.firstChild);
-          // 删除原 <p>，如果里面只剩下这张图片
-          if (parent.tagName.toLowerCase() === 'p' && parent.innerHTML.trim() === '') {
-            parent.remove();
-          }
-          // 给图片加类
-          firstImg.classList.add('full-width');
-        }
-  
-      } catch (error) {
-        modalMedia.innerHTML = "<p>⚠️ Failed to load markdown content.</p>";
-        console.error("Markdown 加载失败:", error);
-      }
-    });
-  });
-}
-
-// ===== 从 Markdown 加载项目 =====
-async function loadProjects(sectionId, data) {
-  const container = document.getElementById(sectionId + "-grid");
-
-  // 页面中已有静态项目卡片时，只绑定交互，不再重复渲染（便于搜索引擎抓取）
-  if (container.dataset.static === "true") {
-    bindProjectItems(container);
-    return;
-  }
-
-  for (let proj of data) {
-    const item = document.createElement("div");
-    item.classList.add("project-item");
-    item.dataset.markdown = proj.markdown;
-    item.dataset.bilibili = proj.bilibili || "";
-
-    // 先设置 Loading
-    item.innerHTML = `
-      <img src="${proj.thumb}" alt="" />
-      <div class="overlay"><span class="project-title">Loading...</span></div>
-    `;
-    container.appendChild(item);
-
-    // Fetch Markdown 获取首行作为标题
-    try {
-      const response = await fetch(proj.markdown);
-      const markdownText = await response.text();
-      const lines = markdownText.split(/\r?\n/);
-      const firstLine = lines.find(l => l.trim() !== '');
-      const title = firstLine ? firstLine.replace(/^#\s*/, '') : '';
-
-      // 更新首图标题
-      item.querySelector('.project-title').textContent = title;
-    } catch (error) {
-      console.error("Markdown 加载失败:", error);
-      item.querySelector('.project-title').textContent = "Failed";
-    }
-  }
-
-  bindProjectItems(container);
-}
-
-
-
-async function loadPublications(mdPath) {
-  const container = document.getElementById("publication-list");
-
-  // 静态 HTML 已渲染时跳过，避免重复（便于搜索引擎抓取）
-  if (container.dataset.static === "true") {
-    return;
-  }
+  modalTitle.textContent = '';
+  modalMedia.innerHTML = '<p>Loading...</p>';
+  modal.style.display = 'block';
 
   try {
-    const mdText = await fetch(mdPath).then(res => res.text());
+    let markdownText = await fetch(mdPath).then(res => res.text());
 
-    // 按一级标题拆分（保留标题）
-    const blocks = mdText
-      .split(/\n(?=# )/)
-      .map(b => b.trim())
-      .filter(b => b.startsWith("#"));
+    // 修正 Markdown 中的相对图片路径
+    const mdFolder = mdPath.substring(0, mdPath.lastIndexOf('/') + 1);
+    markdownText = markdownText.replace(/!\[([^\]]*)\]\(([^)]+)\)/g, (match, alt, src) => {
+      if (!src.startsWith('http') && !src.startsWith('/')) {
+        src = mdFolder + src;
+      }
+      return `![${alt}](${src})`;
+    });
 
-    for (let block of blocks) {
-      const html = marked.parse(block);
+    modalMedia.innerHTML = marked.parse(markdownText);
 
-      // 用 DOM 再解析一遍结构
-      const temp = document.createElement("div");
-      temp.innerHTML = html;
-
-      const title = temp.querySelector("h1")?.innerText || "";
-
-      const paragraphs = temp.querySelectorAll("p");
-
-      const authors = paragraphs[0]?.innerHTML || "";
-      const venue = paragraphs[1]?.innerHTML || "";
-      const links = paragraphs[2]?.innerHTML || "";
-      const abstract = paragraphs[3]?.innerHTML || "";
-
-      const item = document.createElement("div");
-      item.className = "publication-item";
-      item.innerHTML = `
-        <h3>${title}</h3>
-        <div class="publication-authors">${authors}</div>
-        <div class="publication-venue">${venue}</div>
-        <div class="publication-links">${links}</div>
-        <div class="publication-abstract">${abstract}</div>
-      `;
-
-      item.querySelectorAll("a").forEach(a => {
-        a.setAttribute("target", "_blank");
-        a.setAttribute("rel", "noopener noreferrer");
-      });
-
-      container.appendChild(item);
-
+    // 第一张图通栏显示
+    const imgs = modalMedia.querySelectorAll('img');
+    if (imgs.length > 0) {
+      const firstImg = imgs[0];
+      const parent = firstImg.parentElement;
+      modalMedia.insertBefore(firstImg, modalMedia.firstChild);
+      if (parent.tagName.toLowerCase() === 'p' && parent.innerHTML.trim() === '') {
+        parent.remove();
+      }
+      firstImg.classList.add('full-width');
     }
-
-  } catch (err) {
-    console.error("Publication Markdown 加载失败:", err);
-    container.innerHTML = "<p>⚠️ Failed to load publications.</p>";
+  } catch (error) {
+    modalMedia.innerHTML = '<p>⚠️ Failed to load markdown content.</p>';
+    console.error('Markdown 加载失败:', error);
   }
 }
 
+// ===== 作品卡片内嵌播放 B 站视频 =====
+function playWorkVideo(card) {
+  const bvid = card.dataset.bilibili;
+  if (!bvid) return;
 
-function loadVideo(el, bvid) {
+  const media = card.querySelector('.work-media');
+  if (!media || media.classList.contains('playing')) return;
 
-  if (el.classList.contains('loaded')) return;
+  media.dataset.original = media.innerHTML;
+  media.innerHTML = `
+    <iframe src="https://player.bilibili.com/player.html?bvid=${bvid}&autoplay=1"
+            frameborder="0"
+            allowfullscreen></iframe>
+    <button class="work-close" type="button" aria-label="关闭视频">×</button>
+  `;
+  media.classList.add('playing');
 
-  // 停止其他视频
-  document.querySelectorAll('.video-item.loaded').forEach(item => {
-    item.innerHTML = item.dataset.original;
-    item.classList.remove('loaded');
+  media.querySelector('.work-close').addEventListener('click', e => {
+    e.stopPropagation();
+    media.innerHTML = media.dataset.original;
+    media.classList.remove('playing');
   });
-
-  // 保存原始内容
-  el.dataset.original = el.innerHTML;
-
-  // 创建 iframe（B站）
-  const iframe = document.createElement("iframe");
-  iframe.src = `https://player.bilibili.com/player.html?bvid=${bvid}&autoplay=1`;
-  iframe.frameBorder = "0";
-  iframe.allowFullscreen = true;
-  iframe.style.width = "100%";
-  iframe.style.height = "100%";
-
-  el.innerHTML = "";
-  el.appendChild(iframe);
-
-  el.classList.add('loaded');
 }
 
+// ===== 绑定作品卡片交互 =====
+document.querySelectorAll('.work-card').forEach(card => {
+  const playBtn = card.querySelector('.work-play');
+  if (playBtn) {
+    playBtn.addEventListener('click', e => {
+      e.stopPropagation();
+      playWorkVideo(card);
+    });
+  }
 
-
-
-
-
-// ===== Markdown 数据配置 =====
-const projectData = [
-  { thumb: "assets/project/2026_Perfattice/1.jpg", markdown: "assets/project/2026_Perfattice/intro.md" },
-  { thumb: "assets/project/2025_freeshell/1.jpg", markdown: "assets/project/2025_freeshell/intro.md" },
-  { thumb: "assets/project/2025_interflex/1.jpg", markdown: "assets/project/2025_interflex/intro.md" },
-  { thumb: "assets/project/2025_CurveFolding/1.jpg", markdown: "assets/project/2025_CurveFolding/intro.md" },
-  { thumb: "assets/project/2022_FoldableShell/1.jpg", markdown: "assets/project/2022_FoldableShell/intro.md" },
-];
-
-// const contentData = [
-//   { thumb: "assets/content/folding/1.jpg", markdown: "assets/content/folding/intro.md" },
-//   { thumb: "assets/content/modular/1.jpg", markdown: "assets/content/modular/intro.md" }
-// ];
-
-const publicationData = "assets/publication/publications.md"
-
-// ===== 加载项目 =====
-loadProjects('projects', projectData);
-// loadProjects('design', contentData);
-loadPublications(publicationData);
+  if (card.dataset.markdown) {
+    card.classList.add('has-detail');
+    card.addEventListener('click', () => {
+      const media = card.querySelector('.work-media');
+      if (media && media.classList.contains('playing')) return;
+      openWorkDetail(card);
+    });
+  }
+});
