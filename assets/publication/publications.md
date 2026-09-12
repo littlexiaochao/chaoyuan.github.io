@@ -8,7 +8,7 @@
 ---
 # Complex Surface Fabrication via Developable Surface Approximation: A Survey
 
-**ChaoYuan**, NanCao, YangShi
+**Chao Yuan**, Nan Cao, Yang Shi
 
 *IEEE Transactions on Visualization and Computer Graphics (TVCG), 2025*
 [Link](https://ieeexplore.ieee.org/document/10870379)

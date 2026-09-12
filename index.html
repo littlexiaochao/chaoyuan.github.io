@@ -3,10 +3,55 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Chao Yuan - Personal Website</title>
+  <title>Chao Yuan (袁潮) | Tongji University - Computational Design &amp; HCI</title>
+  <meta name="description" content="Chao Yuan (袁潮) is a Ph.D. candidate at Tongji University working on computational design, digital fabrication, human-computer interaction, and computer graphics." />
+  <meta name="author" content="Chao Yuan" />
+  <meta name="robots" content="index, follow" />
+  <link rel="canonical" href="https://littlexiaochao.github.io/chaoyuan.github.io/" />
+
+  <!-- Social sharing -->
+  <meta property="og:type" content="profile" />
+  <meta property="og:title" content="Chao Yuan (袁潮) | Tongji University" />
+  <meta property="og:description" content="Computational Design · Digital Fabrication · Human-Computer Interaction" />
+  <meta property="og:url" content="https://littlexiaochao.github.io/chaoyuan.github.io/" />
+  <meta property="og:image" content="https://littlexiaochao.github.io/chaoyuan.github.io/assets/home/myphoto.png" />
+  <meta name="twitter:card" content="summary_large_image" />
+  <meta name="twitter:title" content="Chao Yuan (袁潮) | Tongji University" />
+  <meta name="twitter:description" content="Computational Design · Digital Fabrication · Human-Computer Interaction" />
+  <meta name="twitter:image" content="https://littlexiaochao.github.io/chaoyuan.github.io/assets/home/myphoto.png" />
+
   <link rel="stylesheet" href="style.css" />
-  <link href="https://fonts.googleapis.com/css2?family=Noto+Sans&display=swap" rel="stylesheet">
-  <link href="https://fonts.googleapis.com/css2?family=DM+Serif+Display&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Noto+Sans&amp;display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=DM+Serif+Display&amp;display=swap" rel="stylesheet">
+
+  <!-- Structured data: helps search engines identify Chao Yuan / 袁潮 as one person -->
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "Person",
+    "name": "Chao Yuan",
+    "alternateName": ["袁潮", "Yuan Chao"],
+    "url": "https://littlexiaochao.github.io/chaoyuan.github.io/",
+    "image": "https://littlexiaochao.github.io/chaoyuan.github.io/assets/home/myphoto.png",
+    "email": "mailto:2210992@tongji.edu.cn",
+    "jobTitle": "Ph.D. Candidate",
+    "affiliation": { "@type": "Organization", "name": "Tongji University" },
+    "alumniOf": [
+      { "@type": "Organization", "name": "Tsinghua University" },
+      { "@type": "Organization", "name": "Central South University" }
+    ],
+    "knowsAbout": [
+      "Computational Design",
+      "Digital Fabrication",
+      "Human-Computer Interaction",
+      "Computer Graphics"
+    ],
+    "sameAs": [
+      "https://orcid.org/0009-0002-1864-2792",
+      "https://github.com/littlexiaochao"
+    ]
+  }
+  </script>
 </head>
 
 
@@ -24,7 +69,7 @@
 
   <!-- ===== Home ===== -->
   <section id="home" class="home-section">
-    <img src="assets/home/intro.gif" id="intro-video" alt="Intro GIF" />
+    <img src="assets/home/intro.gif" id="intro-video" alt="Chao Yuan - Computational Design, Fabrication and HCI" />
 
     <div class="overlay">
       <h1>袁潮 | Chao Yuan</h1>
@@ -43,8 +88,8 @@
         <h3>袁潮 | Chao Yuan</h3>
         <p class="about-text">
           Email: 2210992@tongji.edu.cn<br />
-          <a href="https://orcid.org/my-orcid?orcid=0009-0002-1864-2792" target="_blank" class="link">ORCID</a>
-          <a href="https://xhslink.com/m/47Yu3WoSExI" target="_blank" class="link">RedNote</a>
+          <a href="https://orcid.org/0009-0002-1864-2792" target="_blank" rel="noopener noreferrer" class="link">ORCID</a>
+          <a href="https://xhslink.com/m/47Yu3WoSExI" target="_blank" rel="noopener noreferrer" class="link">RedNote</a>
         </p>
       </div>
 
@@ -73,27 +118,27 @@
     <div class="project-grid exhibition-grid" id="exhibition-grid">
 
       <div class="project-item video-item" onclick="loadVideo(this, 'BV1R4DvBEEZP')">
-        <img src="assets/project/2026_Perfattice/1.jpg">
+        <img src="assets/project/2026_Perfattice/1.jpg" alt="AI驱动的混合晶格逆向设计系统 by Chao Yuan">
         <span class="project-title">AI驱动的混合晶格逆向设计系统</span>
       </div>
       
       <div class="project-item video-item" onclick="loadVideo(this, 'BV1SzDvBgEu7')">
-        <img src="assets/project/2025_freeshell/result1.jpg">
+        <img src="assets/project/2025_freeshell/result1.jpg" alt="基于4D打印的曲面精准形变工艺 by Chao Yuan">
         <span class="project-title">基于4D打印的曲面精准形变工艺</span>
       </div>
       
       <div class="project-item video-item" onclick="loadVideo(this, 'BV1T1DvBTEuF')">
-        <img src="assets/project/2025_interflex/1.jpg">
+        <img src="assets/project/2025_interflex/1.jpg" alt="3D打印柔性面料数字制造工具 by Chao Yuan">
         <span class="project-title">3D打印柔性面料数字制造工具</span>
       </div>
       
       <div class="project-item video-item" onclick="loadVideo(this, 'BV1ij411k7WS')">
-        <img src="assets/project/2022_FancyColor/poster1.png">
+        <img src="assets/project/2022_FancyColor/poster1.png" alt="结构色矩阵装置 by Chao Yuan">
         <span class="project-title">结构色矩阵装置</span>
       </div>
       
       <div class="project-item video-item" onclick="loadVideo(this, 'BV1s34y1N72X')">
-        <img src="assets/project/2022_FancyColor/poster2.png">
+        <img src="assets/project/2022_FancyColor/poster2.png" alt="3D打印结构色张拉膜结构装置 by Chao Yuan">
         <span class="project-title">3D打印结构色张拉膜结构装置</span>
       </div>
 
@@ -103,8 +148,28 @@
   <!-- ===== Project ===== -->
   <section id="projects" class="content-section">
     <h2>Project</h2>
-    <div class="project-grid" id="projects-grid">
-      <!-- Markdown 项目自动加载 -->
+    <div class="project-grid" id="projects-grid" data-static="true">
+      <!-- 静态渲染，便于搜索引擎抓取；点击交互由 script.js 绑定 -->
+      <div class="project-item" data-markdown="assets/project/2026_Perfattice/intro.md">
+        <img src="assets/project/2026_Perfattice/1.jpg" alt="Perfattice: Interactive Performance-Driven Design of Heterogeneous Lattices by Chao Yuan" loading="lazy" decoding="async" />
+        <div class="overlay"><span class="project-title">Perfattice: Interactive Performance-Driven Design of Heterogeneous Lattices ｜ AI驱动的混合晶格逆向设计系统</span></div>
+      </div>
+      <div class="project-item" data-markdown="assets/project/2025_freeshell/intro.md">
+        <img src="assets/project/2025_freeshell/1.jpg" alt="FreeShell: A Context-Free 4D Printing Technique by Chao Yuan" loading="lazy" decoding="async" />
+        <div class="overlay"><span class="project-title">FreeShell: A Context-Free 4D Printing Technique for Fabricating Complex 3D Triangle Mesh Shells ｜ 基于4D打印的曲面精准形变工艺</span></div>
+      </div>
+      <div class="project-item" data-markdown="assets/project/2025_interflex/intro.md">
+        <img src="assets/project/2025_interflex/1.jpg" alt="InterFlex: An Interactive Tool for Designing and 3D-Printing Wearable Flexible Supporting Materials by Chao Yuan" loading="lazy" decoding="async" />
+        <div class="overlay"><span class="project-title">InterFlex : An Interactive Tool for Designing and 3D-Printing Wearable Flexible Supporting Materials | 3D打印柔性面料数字制造工具</span></div>
+      </div>
+      <div class="project-item" data-markdown="assets/project/2025_CurveFolding/intro.md">
+        <img src="assets/project/2025_CurveFolding/1.jpg" alt="CurveFolds: A Surface Fabrication Method based on Curve Folding by Chao Yuan" loading="lazy" decoding="async" />
+        <div class="overlay"><span class="project-title">CurveFolds: A Surface Fabrication Method based on Curve Folding ｜ 基于曲线折纸的曲面制作工艺</span></div>
+      </div>
+      <div class="project-item" data-markdown="assets/project/2022_FoldableShell/intro.md">
+        <img src="assets/project/2022_FoldableShell/1.jpg" alt="FoldableShell: a 3D-printed shell framework based on developable surface principles by Chao Yuan" loading="lazy" decoding="async" />
+        <div class="overlay"><span class="project-title">FoldableShell: a 3D-printed shell framework based on developable surface principles ｜ 基于曲面可展的3D打印壳体框架方法</span></div>
+      </div>
     </div>
   </section>
 
@@ -112,8 +177,62 @@
   <!-- ===== Publication ===== -->
   <section id="publication" class="content-section">
     <h2>Publication</h2>
-    <div id="publication-list" class="publication-list">
-      <!-- Markdown 自动加载 -->
+    <div id="publication-list" class="publication-list" data-static="true">
+      <!-- 静态渲染，便于搜索引擎抓取；新增论文时直接复制下面的 publication-item 结构 -->
+      <div class="publication-item">
+        <h3>FreeShell: A Context-Free 4D Printing Technique for Fabricating Complex 3D Triangle Mesh Shells</h3>
+        <div class="publication-authors"><strong>Chao Yuan</strong>, Shengqi Dang, Xuejiao Ma, Nan Cao</div>
+        <div class="publication-venue"><em>ACM Transactions on Graphics (TOG), 2026</em></div>
+        <div class="publication-links"><a href="https://doi.org/10.1145/3778349" target="_blank" rel="noopener noreferrer">Link</a></div>
+      </div>
+      <div class="publication-item">
+        <h3>Complex Surface Fabrication via Developable Surface Approximation: A Survey</h3>
+        <div class="publication-authors"><strong>Chao Yuan</strong>, Nan Cao, Yang Shi</div>
+        <div class="publication-venue"><em>IEEE Transactions on Visualization and Computer Graphics (TVCG), 2025</em></div>
+        <div class="publication-links"><a href="https://ieeexplore.ieee.org/document/10870379" target="_blank" rel="noopener noreferrer">Link</a></div>
+      </div>
+      <div class="publication-item">
+        <h3>More Than Shapes: Exploring the Tactile Parameters of Art Appreciation for the Visually Impaired</h3>
+        <div class="publication-authors">MingYu Cui, <strong>Chao Yuan</strong>, Yujia Liu, Yingying Zheng</div>
+        <div class="publication-venue"><em>ACM International Joint Conference on Pervasive and Ubiquitous Computing (UbiComp), 2024</em></div>
+        <div class="publication-links"><a href="https://doi.org/10.1145/3675094.3678391" target="_blank" rel="noopener noreferrer">Link</a></div>
+      </div>
+      <div class="publication-item">
+        <h3>Topology Reconstruction of a Discontinuous B-rep Geometry by using Form Finding Method</h3>
+        <div class="publication-authors"><strong>Chao Yuan</strong>, Xiao Zhang, Shaoting Zeng, Liu Yang, Zhilong Zhao, Song Qiu</div>
+        <div class="publication-venue"><em>Conference of the Association of Education and Research in Computer Aided Architectural Design in Europe (eCAADe), 2021</em></div>
+        <div class="publication-links"><a href="https://doi.org/10.52842/conf.ecaade.2021.2.371" target="_blank" rel="noopener noreferrer">Link</a></div>
+      </div>
+      <div class="publication-item">
+        <h3>Design and Fabrication of Formwork for Shell Structures Based on 3D-printing Technology</h3>
+        <div class="publication-authors">Xiao Zhang, <strong>Chao Yuan</strong>, Liu Yang, Peiran Yu, Yiwen Ma, Song Qiu, Zhe Guo, Philip Yuan</div>
+        <div class="publication-venue"><em>Conference of the Association of Education and Research in Computer Aided Architectural Design in Europe (eCAADe), 2021</em></div>
+        <div class="publication-links"><a href="https://doi.org/10.52842/conf.ecaade.2021.1.487" target="_blank" rel="noopener noreferrer">Link</a></div>
+      </div>
+      <div class="publication-item">
+        <h3>ViviClay: Fabricating Ceramics with Animated Surface Effects</h3>
+        <div class="publication-authors">Jingxin Ye, Qiaoqiao Jin, <strong>Chao Yuan</strong>, Xuechen Li, Yang Shi, Qing Chen, Nan Cao, Guanhong Liu</div>
+        <div class="publication-venue"><em>Proceedings of the Extended Abstracts of the CHI Conference on Human Factors in Computing Systems (CHI EA), 2025</em></div>
+        <div class="publication-links"><a href="https://doi.org/10.1145/3706599.3719685" target="_blank" rel="noopener noreferrer">Link</a></div>
+      </div>
+      <div class="publication-item">
+        <h3>ViviClay: Designing and Fabricating Ceramics with Animation Effects on Physical Surfaces</h3>
+        <div class="publication-authors">Guanhong Liu, Jingxin Ye, Qiaoqiao Jin, <strong>Chao Yuan</strong>, Xuechen Li, Yang Shi, Qing Chen, Nan Cao</div>
+        <div class="publication-venue"><em>Proceedings of ACM Symposium on User Interface Software and Technology (UIST), 2025</em></div>
+        <div class="publication-links"><a href="https://doi.org/10.1145/3746059.3747728" target="_blank" rel="noopener noreferrer">Link</a></div>
+      </div>
+      <div class="publication-item">
+        <h3>生成式人工智能影响下的建筑设计新模式</h3>
+        <div class="publication-authors"><strong>袁潮</strong>, 郑豪</div>
+        <div class="publication-venue"><em>建筑学报, 2023</em></div>
+        <div class="publication-links"><a href="https://kns.cnki.net/kcms2/article/abstract?v=YtMUyApXHwadwQpN7gknuqBlYEG9rFvbC6kqn98sXFqs7nct7Ihr5jdblvpxjAf643B6TlyTan22ImTJBe4FuXo0wSYoGKRpsUySbdTTol23w42bVW_yfueS24Z7aEksOUpMvBV2rAsfEChMrBKuxYb_s_56NuWp4L1Y7TqhW4ZK5K4oEsjGDw==&amp;uniplatform=NZKPT&amp;language=CHS" target="_blank" rel="noopener noreferrer">Link</a></div>
+      </div>
+      <div class="publication-item">
+        <h3>基于动力学找形方法的非连续多重曲面拓扑重构研究</h3>
+        <div class="publication-authors"><strong>袁潮</strong>, 张啸, 邱松</div>
+        <div class="publication-venue"><em>包装工程, 2022</em></div>
+        <div class="publication-links"><a href="https://kns.cnki.net/kcms2/article/abstract?v=YtMUyApXHwYEM2hZEnDLzFMvS6HBneyj2jUrNhp7vK1gJL9CSa1sJNu-btgEHFnXZhYYFVnpvSC7fxHwqs0GJgyIlq8rH67_inZ_AZ2ck-9MRQj7md4fDk-Z-0A0s4D4Z5WCmVbaYan4CX0CKR6amXWiazA_8Z6MHjoCQeohCm5Bx0--qRja9w==&amp;uniplatform=NZKPT&amp;language=CHS" target="_blank" rel="noopener noreferrer">Link</a></div>
+      </div>
     </div>
   </section>
   
@@ -130,38 +249,34 @@
   <!-- ===== 脚本加载 ===== -->
   <script src="https://cdn.jsdelivr.net/npm/marked/marked.min.js"></script>
   <script src="script.js"></script>
+
+  <!-- ===== Footer ===== -->
+  <footer class="footer">
+    <div class="footer-container">
+
+      <div class="footer-col">
+        <h3>Contact</h3>
+        <p>Email: 2210992@tongji.edu.cn</p>
+      </div>
+
+      <div class="footer-col">
+        <h3>Research</h3>
+        <p>Computational Design</p>
+        <p>Digital Fabrication</p>
+        <p>Human-Computer Interaction</p>
+      </div>
+
+      <div class="footer-col">
+        <h3>Links</h3>
+        <p><a href="https://orcid.org/0009-0002-1864-2792" target="_blank" rel="noopener noreferrer">ORCID</a></p>
+        <p><a href="https://xhslink.com/m/47Yu3WoSExI" target="_blank" rel="noopener noreferrer">RedNote</a></p>
+      </div>
+
+    </div>
+
+    <div class="footer-bottom">
+      © 2026 Chao Yuan
+    </div>
+  </footer>
 </body>
-
-
-
-<!-- ===== Footer ===== -->
-<footer class="footer">
-  <div class="footer-container">
-
-    <div class="footer-col">
-      <h3>Contact</h3>
-      <p>Email: 2210992@tongji.edu.cn</p>
-    </div>
-
-    <div class="footer-col">
-      <h3>Research</h3>
-      <p>Computational Design</p>
-      <p>Digital Fabrication</p>
-      <p>Human-Computer Interaction</p>
-    </div>
-
-    <div class="footer-col">
-      <h3>Links</h3>
-      <p><a href="https://orcid.org/my-orcid?orcid=0009-0002-1864-2792" target="_blank">ORCID</a></p>
-      <p><a href="https://xhslink.com/m/47Yu3WoSExI" target="_blank">RedNote</a></p>
-    </div>
-
-  </div>
-
-  <div class="footer-bottom">
-    © 2026 Chao Yuan
-  </div>
-</footer>
-
-
 </html>

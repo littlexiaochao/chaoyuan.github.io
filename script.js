@@ -74,40 +74,8 @@ window.onclick = e => {
   if (e.target === modal) modal.style.display = 'none';
 };
 
-// ===== 从 Markdown 加载项目 =====
-async function loadProjects(sectionId, data) {
-  const container = document.getElementById(sectionId + "-grid");
-
-  for (let proj of data) {
-    const item = document.createElement("div");
-    item.classList.add("project-item");
-    item.dataset.markdown = proj.markdown;
-    item.dataset.bilibili = proj.bilibili || "";
-
-    // 先设置 Loading
-    item.innerHTML = `
-      <img src="${proj.thumb}" alt="" />
-      <div class="overlay"><span class="project-title">Loading...</span></div>
-    `;
-    container.appendChild(item);
-
-    // Fetch Markdown 获取首行作为标题
-    try {
-      const response = await fetch(proj.markdown);
-      const markdownText = await response.text();
-      const lines = markdownText.split(/\r?\n/);
-      const firstLine = lines.find(l => l.trim() !== '');
-      const title = firstLine ? firstLine.replace(/^#\s*/, '') : '';
-
-      // 更新首图标题
-      item.querySelector('.project-title').textContent = title;
-    } catch (error) {
-      console.error("Markdown 加载失败:", error);
-      item.querySelector('.project-title').textContent = "Failed";
-    }
-  }
-
-  // 点击弹框显示完整 Markdown
+// ===== 项目卡片交互：点击弹框显示完整 Markdown =====
+function bindProjectItems(container) {
   container.querySelectorAll(".project-item").forEach(item => {
     item.addEventListener("click", async () => {
       const mdPath = item.dataset.markdown;
@@ -182,10 +150,57 @@ async function loadProjects(sectionId, data) {
   });
 }
 
+// ===== 从 Markdown 加载项目 =====
+async function loadProjects(sectionId, data) {
+  const container = document.getElementById(sectionId + "-grid");
+
+  // 页面中已有静态项目卡片时，只绑定交互，不再重复渲染（便于搜索引擎抓取）
+  if (container.dataset.static === "true") {
+    bindProjectItems(container);
+    return;
+  }
+
+  for (let proj of data) {
+    const item = document.createElement("div");
+    item.classList.add("project-item");
+    item.dataset.markdown = proj.markdown;
+    item.dataset.bilibili = proj.bilibili || "";
+
+    // 先设置 Loading
+    item.innerHTML = `
+      <img src="${proj.thumb}" alt="" />
+      <div class="overlay"><span class="project-title">Loading...</span></div>
+    `;
+    container.appendChild(item);
+
+    // Fetch Markdown 获取首行作为标题
+    try {
+      const response = await fetch(proj.markdown);
+      const markdownText = await response.text();
+      const lines = markdownText.split(/\r?\n/);
+      const firstLine = lines.find(l => l.trim() !== '');
+      const title = firstLine ? firstLine.replace(/^#\s*/, '') : '';
+
+      // 更新首图标题
+      item.querySelector('.project-title').textContent = title;
+    } catch (error) {
+      console.error("Markdown 加载失败:", error);
+      item.querySelector('.project-title').textContent = "Failed";
+    }
+  }
+
+  bindProjectItems(container);
+}
+
 
 
 async function loadPublications(mdPath) {
   const container = document.getElementById("publication-list");
+
+  // 静态 HTML 已渲染时跳过，避免重复（便于搜索引擎抓取）
+  if (container.dataset.static === "true") {
+    return;
+  }
 
   try {
     const mdText = await fetch(mdPath).then(res => res.text());
